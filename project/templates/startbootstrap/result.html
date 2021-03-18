@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Bare - Start Bootstrap Template</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- jquery -->
+  <script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+  
+
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+    <div class="container">
+      <a class="navbar-brand" href="http://127.0.0.1:5000/">서울 공중화장실</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="http://127.0.0.1:5000/">Home
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="http://127.0.0.1:5000/data">Data</a>
+          </li>
+          <!-- <li class="nav-item">
+            <a class="nav-link" href="#">Services</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Contact</a>
+          </li> -->
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Content -->
+  <div class="container">
+    <div class="row">
+      <table>
+        <th style="text-align:center;" width="550">이름</th>
+        <th style="text-align:center;" width="700">주소</th>
+        <th style="text-align:center;" width="300">남자화장실 변기 수</th>
+        <th style="text-align:center;" width="300">여자화장실 변기 수</th>
+        <th style="text-align:center;" width="300">링크</th>
+        {%for i in range(num)%}
+            <tr>
+                <td style="text-align:center;">{{result[i][0]}}</A></td>
+                <td style="text-align:center;">{{ result[i][1] }}</td>
+                <td style="text-align:center;">{{ result[i][2] + result[i][3] + result[i][4] + result[i][5] + result[i][6] + result[i][7]}} 대</td>
+                <td style="text-align:center;">{{ result[i][8] + result[i][9] + result[i][10]}} 대</td>
+                <td style="text-align:center;"><a class="btn btn-primary" href="https://map.kakao.com/link/search/{{result[i][1]}}" role="button">Link</a></td>
+                <!-- <td>
+                  <div id="box">
+                    <li class="main">
+                      지도
+                      <ul class="sub" style="display:none">
+                        <div id="map" style="width:500px;height:400px;"></div>
+                      <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=97ce3f6d2c6ecd1da75e5c8524f49428"></script>
+                      <script>
+                        var container = document.getElementById('map');
+                        var options = {
+                          center: new kakao.maps.LatLng(33.450701, 126.570667),
+                          level: 3
+                        };
+
+                        var map = new kakao.maps.Map(container, options);
+                      </script>
+                      </ul>
+                    </li>
+                  </div>
+                  <script>
+                    $(".main").click(function(){
+                      if($(".sub").is(":visible")){
+                      $(".sub").css("display","none");
+                     }
+                else{
+                    $(".sub").css("display","block");
+                            }
+                       })
+                  </script>
+                </td> -->
+            </tr>
+        {%endfor%} 
+    </table>
+    <div id="map" style="width:2000px;height:600px;" style="text-align: center;"></div>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=97ce3f6d2c6ecd1da75e5c8524f49428"></script>
+    <script>
+      var container = document.getElementById('map');
+      var options = {
+        center: new kakao.maps.LatLng(33.450701, 126.570667),
+        level: 3
+      };
+  
+      var map = new kakao.maps.Map(container, options);
+    </script>
+    </div>
+  </div>
+
+  <!-- Bootstrap core JavaScript -->
+  <script src="vendor/jquery/jquery.slim.min.js"></script>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  <!-- 카카오 -->
+  <div id="map" style="width:500px;height:400px;" style="text-align: center;"></div>
+	<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=97ce3f6d2c6ecd1da75e5c8524f49428"></script>
+	<script>
+    // 마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
+    var infowindow = new kakao.maps.InfoWindow({zIndex:1});
+    
+    var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+        mapOption = {
+            center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
+            level: 3 // 지도의 확대 레벨
+        };  
+    
+    // 지도를 생성합니다    
+    var map = new kakao.maps.Map(mapContainer, mapOption); 
+    
+    // 장소 검색 객체를 생성합니다
+    var ps = new kakao.maps.services.Places(); 
+    
+    // 키워드로 장소를 검색합니다
+    ps.keywordSearch('이태원 맛집', placesSearchCB); 
+    
+    // 키워드 검색 완료 시 호출되는 콜백함수 입니다
+    function placesSearchCB (data, status, pagination) {
+        if (status === kakao.maps.services.Status.OK) {
+    
+            // 검색된 장소 위치를 기준으로 지도 범위를 재설정하기위해
+            // LatLngBounds 객체에 좌표를 추가합니다
+            var bounds = new kakao.maps.LatLngBounds();
+    
+            for (var i=0; i<data.length; i++) {
+                displayMarker(data[i]);    
+                bounds.extend(new kakao.maps.LatLng(data[i].y, data[i].x));
+            }       
+    
+            // 검색된 장소 위치를 기준으로 지도 범위를 재설정합니다
+            map.setBounds(bounds);
+        } 
+    }
+    
+    // 지도에 마커를 표시하는 함수입니다
+    function displayMarker(place) {
+        
+        // 마커를 생성하고 지도에 표시합니다
+        var marker = new kakao.maps.Marker({
+            map: map,
+            position: new kakao.maps.LatLng(place.y, place.x) 
+        });
+    
+        // 마커에 클릭이벤트를 등록합니다
+        kakao.maps.event.addListener(marker, 'click', function() {
+            // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
+            infowindow.setContent('<div style="padding:5px;font-size:12px;">' + place.place_name + '</div>');
+            infowindow.open(map, marker);
+        });
+    }
+    </script>
+
+</body>
+
+</html>

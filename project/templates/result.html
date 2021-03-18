@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    </head>
+    <body>
+        <table>
+            <th style="text-align:center;">이름</th>
+            <th style="text-align:center;">주소</th>
+            <th style="text-align:center;">남자화장실 변기 수</th>
+            <th style="text-align:center;">여자화장실 변기 수</th>
+            <th style="text-align:center;">링크</th>
+            {%for i in range(num)%}
+                <tr>
+                    <td style="text-align:center;">{{result[i][0]}}</A></td>
+                    <td style="text-align:center;">{{ result[i][1] }}</td>
+                    <td style="text-align:center;">{{ result[i][2] + result[i][3] + result[i][4] + result[i][5] + result[i][6] + result[i][7]}} 대</td>
+                    <td style="text-align:center;">{{ result[i][8] + result[i][9] + result[i][10]}} 대</td>
+                    <td style="text-align:center;"><a class="btn btn-primary" href="https://map.naver.com/v5/search/{{result[i][1]}}" role="button">Link</a></td>
+                </tr>
+            {%endfor%} 
+        </table>
+      
+     </body>
+</html>
